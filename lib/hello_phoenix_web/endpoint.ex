@@ -10,7 +10,9 @@ defmodule HelloPhoenixWeb.Endpoint do
     signing_salt: "Ihu4hNuH"
   ]
 
-  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+  socket "/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options]],
+    partitions: 2
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -25,7 +27,7 @@ defmodule HelloPhoenixWeb.Endpoint do
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
-    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
+    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket, partitions: 2
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
   end
